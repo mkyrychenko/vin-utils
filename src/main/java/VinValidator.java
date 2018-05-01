@@ -25,6 +25,9 @@
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * Class used to validate {@link VIN} constraint in a particular context.
+ */
 public class VinValidator implements ConstraintValidator<VIN, String> {
     @Override
     public void initialize(final VIN constraintAnnotation) {

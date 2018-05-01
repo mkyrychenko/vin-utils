@@ -22,6 +22,10 @@
  * SOFTWARE.
  */
 
+/**
+ * Exception thrown during generation or validation of VIN
+ * in the {@link VinUtils}
+ */
 public class InvalidVinException extends Exception {
 
     private final String wrongVin;

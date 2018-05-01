@@ -55,10 +55,11 @@ public class VinUtils {
      * @return randomly generated VIN
      */
     public static String getRandomVin() {
-        final VinYear vinYear = getRandomVinStart();
+        final Vin vinYear = getRandomVinStart();
         final StringBuilder vinBuilder = new StringBuilder();
 
-        vinBuilder.append(vinYear.getFirst8());
+        vinBuilder.append(vinYear.getWmi());
+        vinBuilder.append(vinYear.getVds());
         vinBuilder.append(getRandomVinChar());
         vinBuilder.append(vinYear.getYear());
 
@@ -168,7 +169,7 @@ public class VinUtils {
         return ALLOWED_CHARS.charAt(RANDOM.nextInt(33));
     }
 
-    private static VinYear getRandomVinStart() {
+    private static Vin getRandomVinStart() {
         // '62178' is a number of lines in the file; + 1 to avoid reading of first line
         final int lineToRead = RANDOM.nextInt(62177) + 1;
 
@@ -178,7 +179,7 @@ public class VinUtils {
                     .orElseThrow(() -> new RuntimeException("Problem occurred while read line " + lineToRead + " from " + PREFIXES_FILE_NAME));
             final String[] fields = line.split(" {3}");
 
-            return new VinYear(fields[0].trim(), fields[1].trim());
+            return new Vin(fields[0].trim(), fields[1].trim(), fields[2].trim());
         } catch (URISyntaxException | IOException | SecurityException e) {
             throw new RuntimeException("Problem occurred while reading " + PREFIXES_FILE_NAME, e);
         }
@@ -187,18 +188,36 @@ public class VinUtils {
     /**
      * Helper class used internally to save parts of VIN
      */
-    private static class VinYear {
-        private final String first8;
+    private static class Vin {
+        /**
+         * WMI - (World Manufacturers Identification)
+         */
+        private final String wmi;
+
+        /**
+         * VDS (Vehicle Description Section)
+         */
+        private final String vds;
+
+        /**
+         * Year of model
+         */
         private final String year;
 
-        VinYear(final String first8,
-                final String year) {
-            this.first8 = first8;
+        Vin(final String wmi,
+            final String vds,
+            final String year) {
+            this.wmi = wmi;
+            this.vds = vds;
             this.year = year;
         }
 
-        String getFirst8() {
-            return this.first8;
+        String getWmi() {
+            return this.wmi;
+        }
+
+        String getVds() {
+            return this.vds;
         }
 
         String getYear() {
