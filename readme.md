@@ -7,7 +7,7 @@ Add to project in `pom.xml`
 <dependency>
     <groupId>com.github.mkyrychenko</groupId>
     <artifactId>vin-utils</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
@@ -17,15 +17,16 @@ For other languages look at [Maven Central](https://search.maven.org/beta/artifa
 
 To generate or validate some VIN, just call corresponding static methods
 ```java
-import com.github.mkyrychenko.VinUtils;
+import de.kyrychenko.utils.vin.VinValidatorUtils;
+import de.kyrychenko.utils.vin.VinGeneratorUtils;
 
 class MyClass {
     public String generate(){
-        return VinUtils.getRandomVin();
+        return VinGeneratorUtils.getRandomVin();
     }
 
     public boolean validate(final String vin){
-        return VinUtils.isValidVin(vin);
+        return VinValidatorUtils.isValidVin(vin);
     }
 }
 ```
@@ -40,7 +41,7 @@ The exception handling should be implemented in this case.
 ```java
 ...
     public boolean validate(final String vin) throws InvalidVinException {
-        return VinUtils.validate(vin);
+        return VinValidatorUtils.validateVin(vin);
     }
 ...
 ```
