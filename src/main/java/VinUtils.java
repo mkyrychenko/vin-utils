@@ -34,7 +34,7 @@ import java.util.stream.Stream;
  * vehicle identification number (VIN)
  * <p>
  * Based on script placed in GitHub
- * <a href="https://github.com/yanigisawa/VinGenerator">VinGenerator</a> project<br/>
+ * <a href="https://github.com/yanigisawa/VinGenerator">VinGenerator</a> project<br>
  * and partly improved with algorithm of
  * <a href="https://introcs.cs.princeton.edu/java/31datatype/VIN.java.html">princeton university</a>
  */
