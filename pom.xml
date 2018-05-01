@@ -6,12 +6,27 @@
 
     <groupId>com.github.mkyrychenko</groupId>
     <artifactId>vin-utils</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
 
-    <name>VIN Utilities</name>
+    <name>${project.groupId}:${project.artifactId</name>
     <description>Library for generate and validate vehicle identification number (VIN)</description>
     <url>https://github.com/mkyrychenko/vin-utils</url>
+
+    <scm>
+        <connection>scm:git:git://github.com:mkyrychenko/vin-utils.git</connection>
+        <developerConnection>scm:git:ssh://github.com:mkyrychenko/vin-utils.git</developerConnection>
+        <url>${project.url}/tree/master</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>mkyrychenko</id>
+            <name>Mykhailo Kyrychenko</name>
+            <email>mykhailo.kyrychenko@gmail.com</email>
+            <url>https://github.com/mkyrychenko</url>
+        </developer>
+    </developers>
 
     <licenses>
         <license>
@@ -88,6 +103,17 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <releaseProfiles>release</releaseProfiles>
+                    <goals>deploy</goals>
+                </configuration>
             </plugin>
         </plugins>
         <finalName>${project.artifactId}</finalName>
