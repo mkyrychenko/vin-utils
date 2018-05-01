@@ -1,5 +1,7 @@
 # Vehicle Identification Number utilities
 
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.mkyrychenko/vin-utils.svg?label=Maven%20Central)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.github.mkyrychenko%22%20a%3A%22vin-utils%22)
+
 Library to generate and validate VIN's
 
 Add to project in `pom.xml`
