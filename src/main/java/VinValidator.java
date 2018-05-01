@@ -20,6 +20,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 public class VinValidator implements ConstraintValidator<VIN, String> {
+    @Override
     public void initialize(final VIN constraintAnnotation) {
         // do nothing
     }

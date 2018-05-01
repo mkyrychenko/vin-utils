@@ -18,8 +18,8 @@ public class VinUtils {
     private static final Random RANDOM = new Random();
     private static final String PREFIXES_FILE_NAME = "vin-prefixes.txt";
     private static final String ALLOWED_CHARS = "0123456789ABCDEFGHJKLMNPRSTUVWXYZ";
-    private static final int[] VIN_DIGIT_POSITION_MULTIPLIER = {8, 7, 6, 5, 4, 3, 2, 10, 0, 9, 8, 7, 6, 5, 4, 3, 2};
-    private static final int[] VIN_DIGIT_VALUES = {1, 2, 3, 4, 5, 6, 7, 8, 0, 1, 2, 3, 4, 5, 0, 7, 0, 9, 2, 3, 4, 5, 6, 7, 8, 9};
+    private static final int[] VIN_POSITION_WEIGHT = {8, 7, 6, 5, 4, 3, 2, 10, 0, 9, 8, 7, 6, 5, 4, 3, 2};
+    private static final int[] VIN_LETTER_VALUE = {1, 2, 3, 4, 5, 6, 7, 8, 0, 1, 2, 3, 4, 5, 0, 7, 0, 9, 2, 3, 4, 5, 6, 7, 8, 9};
 
     /**
      * Generate random VIN
@@ -98,16 +98,16 @@ public class VinUtils {
         for (int i = 0; i < 17; i++) {
             final char key = vin.charAt(i);
 
-            int value;
+            int value = 0;
             if (key >= 'A' && key <= 'Z') {
-                value = VIN_DIGIT_VALUES[key - 'A'];
+                value = VIN_LETTER_VALUE[key - 'A'];
             } else if (key >= '0' && key <= '9') {
-                value = VIN_DIGIT_VALUES[key - '0'];
+                value = Character.getNumericValue(key);
             } else {
-                throw new InvalidVinException(String.format("Illegal Character: '%s' in VIN %s (index %d)", key, vin, i));
+                throw new InvalidVinException(String.format("Illegal character '%s' in VIN '%s' at position %d", key, vin, i));
             }
 
-            sum += value * VIN_DIGIT_POSITION_MULTIPLIER[i];
+            sum += value * VIN_POSITION_WEIGHT[i];
         }
 
         return sum % 11;
