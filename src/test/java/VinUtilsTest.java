@@ -38,10 +38,10 @@ public class VinUtilsTest {
     }
 
     @Test
-    public void sholdGenerateCorrectVin() {
+    public void sholdGenerateCorrectVin() throws InvalidVinException {
         final String generated = VinUtils.getRandomVin();
 
-        assertTrue("VIN " + generated + " was generated, but validation failed.", VinUtils.isValidVin(generated));
+        assertTrue("VIN " + generated + " was generated, but validation failed.", VinUtils.validateVin(generated));
     }
 
     @Test
