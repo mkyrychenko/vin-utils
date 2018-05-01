@@ -79,14 +79,14 @@ public class VinUtils {
         final String validate = vin.toUpperCase().replaceAll("[^A-Z0-9]", "");
 
         if (validate.length() != 17) {
-            throw new InvalidVinException(null, "Length of VIN (without possible additional characters) should equal 17");
+            throw new InvalidVinException(validate, "Length of VIN (without possible additional characters) should equal 17");
         }
 
         final int sum = getCheckSum(validate);
         final char check = validate.charAt(8);
 
         if (check != 'X' && (check < '0' || check > '9')) {
-            throw new InvalidVinException(validate, "Illegal check digit: " + check);
+            throw new InvalidVinException(validate, "Illegal check digit '" + check + "' for VIN '" + validate + "'");
         }
 
         return (sum == 10 && check == 'X') || (sum == check - '0');
@@ -101,10 +101,14 @@ public class VinUtils {
             int value = 0;
             if (key >= 'A' && key <= 'Z') {
                 value = VIN_LETTER_VALUE[key - 'A'];
+
+                if (value == 0) {
+                    throw new InvalidVinException(vin, String.format("Illegal character '%s' in VIN '%s' at position %d", key, vin, i));
+                }
             } else if (key >= '0' && key <= '9') {
                 value = Character.getNumericValue(key);
             } else {
-                throw new InvalidVinException(String.format("Illegal character '%s' in VIN '%s' at position %d", key, vin, i));
+                throw new InvalidVinException(vin, String.format("Illegal character '%s' in VIN '%s' at position %d", key, vin, i));
             }
 
             sum += value * VIN_POSITION_WEIGHT[i];
