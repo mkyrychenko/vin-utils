@@ -22,6 +22,8 @@
  * SOFTWARE.
  */
 
+package de.kyrychenko.utils.vin;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -29,41 +31,34 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-public class VinUtilsTest {
+public class VinValidatorUtilsTest {
     @Test
     public void shouldSuccessOnCorrectVin() {
         final String correctVin = "2G1WB5E37E1110567";
 
-        assertTrue("VIN " + correctVin + " is correct, but validation failed.", VinUtils.isValidVin(correctVin));
-    }
-
-    @Test
-    public void sholdGenerateCorrectVin() throws InvalidVinException {
-        final String generated = VinUtils.getRandomVin();
-
-        assertTrue("VIN " + generated + " was generated, but validation failed.", VinUtils.validateVin(generated));
+        assertTrue("VIN " + correctVin + " is correct, but validation failed.", VinValidatorUtils.isValidVin(correctVin));
     }
 
     @Test
     public void sholdValidateWrongVin() {
         final String vin = "xyz";
 
-        assertFalse("Wrong VIN is provided, but validation succeed.", VinUtils.isValidVin(vin));
+        assertFalse("Wrong VIN is provided, but validation succeed.", VinValidatorUtils.isValidVin(vin));
     }
 
     @Test(expected = InvalidVinException.class)
     public void shouldFailOnNullVinValidation() throws Exception {
-        VinUtils.validateVin(null);
+        VinValidatorUtils.validateVin(null);
     }
 
     @Test(expected = InvalidVinException.class)
     public void shouldFailOnEmptyVinValidation() throws Exception {
-        VinUtils.validateVin("");
+        VinValidatorUtils.validateVin("");
     }
 
     @Test(expected = InvalidVinException.class)
     public void shouldFailOnBlankVinValidation() throws Exception {
-        VinUtils.validateVin("     ");
+        VinValidatorUtils.validateVin("     ");
     }
 
     /**
@@ -73,7 +68,7 @@ public class VinUtilsTest {
      */
     @Test(expected = InvalidVinException.class)
     public void shouldFailOnWrongVinValidation() throws Exception {
-        VinUtils.validateVin("2G1WB5Q37E1110567");
+        VinValidatorUtils.validateVin("2G1WB5Q37E1110567");
     }
 
     @Test
@@ -81,7 +76,7 @@ public class VinUtilsTest {
         final String vin = "2G1WB5E37EI110567";
 
         try {
-            VinUtils.validateVin(vin);
+            VinValidatorUtils.validateVin(vin);
         } catch (InvalidVinException e) {
             assertEquals("Wrong VIN in exception should equal specified one", vin, e.getWrongVin());
             assertEquals("Error message were not found", "Illegal character 'I' in VIN '2G1WB5E37EI110567' at position 10", e.getMessage());
@@ -93,7 +88,7 @@ public class VinUtilsTest {
         final String vin = "2G1WB5E37EI1105673";
 
         try {
-            VinUtils.validateVin(vin);
+            VinValidatorUtils.validateVin(vin);
         } catch (InvalidVinException e) {
             assertEquals("Wrong VIN in exception should equal specified one", vin, e.getWrongVin());
             assertEquals("Error message were not found", "Length of VIN (without possible additional characters) should equal 17", e.getMessage());
@@ -105,7 +100,7 @@ public class VinUtilsTest {
         final String vin = "2G1WB5E36E1110567";
 
         try {
-            VinUtils.validateVin(vin);
+            VinValidatorUtils.validateVin(vin);
         } catch (InvalidVinException e) {
             assertEquals("Wrong VIN in exception should equal specified one", vin, e.getWrongVin());
             assertEquals("Error message were not found", "Illegal check digit '6' for VIN '2G1WB5E37E1110567'", e.getMessage());
@@ -115,7 +110,7 @@ public class VinUtilsTest {
     @Test
     public void shouldContainFailReasonOnNullVinValidation() {
         try {
-            VinUtils.validateVin(null);
+            VinValidatorUtils.validateVin(null);
         } catch (InvalidVinException e) {
             assertNull("Wrong VIN in exception should be null", e.getWrongVin());
             assertEquals("Error message were not found", "VIN should not be null", e.getMessage());
@@ -126,6 +121,6 @@ public class VinUtilsTest {
     public void shouldSuccessOnVinWithOtherChars() {
         final String correctVin = "2G1-WB5E3 7 E-1-110567";
 
-        assertTrue("VIN " + correctVin + " is correct, but validation failed.", VinUtils.isValidVin(correctVin));
+        assertTrue("VIN " + correctVin + " is correct, but validation failed.", VinValidatorUtils.isValidVin(correctVin));
     }
 }

@@ -11,6 +11,8 @@ Add to project in `pom.xml`
 </dependency>
 ```
 
+For other languages look at [Maven Central](https://search.maven.org/beta/artifact/com.github.mkyrychenko/vin-utils/1.1.0/jar)
+
 ### Usage
 
 To generate or validate some VIN, just call corresponding static methods

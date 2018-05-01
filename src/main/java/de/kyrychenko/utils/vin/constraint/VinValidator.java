@@ -22,6 +22,11 @@
  * SOFTWARE.
  */
 
+package de.kyrychenko.utils.vin.constraint;
+
+import de.kyrychenko.utils.vin.InvalidVinException;
+import de.kyrychenko.utils.vin.VinValidatorUtils;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
@@ -38,7 +43,7 @@ public class VinValidator implements ConstraintValidator<VIN, String> {
     public boolean isValid(final String value,
                            final ConstraintValidatorContext context) {
         try {
-            return VinUtils.validateVin(value);
+            return VinValidatorUtils.validateVin(value);
         } catch (InvalidVinException e) {
             String errorMessage = e.getMessage();
 

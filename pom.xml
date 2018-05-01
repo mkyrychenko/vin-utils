@@ -6,10 +6,10 @@
 
     <groupId>com.github.mkyrychenko</groupId>
     <artifactId>vin-utils</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
     <packaging>jar</packaging>
 
-    <name>${project.groupId}:${project.artifactId</name>
+    <name>${project.groupId}:${project.artifactId}</name>
     <description>Library for generate and validate vehicle identification number (VIN)</description>
     <url>https://github.com/mkyrychenko/vin-utils</url>
 

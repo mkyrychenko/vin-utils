@@ -22,9 +22,11 @@
  * SOFTWARE.
  */
 
+package de.kyrychenko.utils.vin;
+
 /**
- * Exception thrown during generation or validation of VIN
- * in the {@link VinUtils}
+ * Exception thrown during validation of VIN
+ * in the {@link VinValidatorUtils}
  */
 public class InvalidVinException extends Exception {
 

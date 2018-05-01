@@ -22,40 +22,18 @@
  * SOFTWARE.
  */
 
-import javax.validation.Constraint;
-import javax.validation.Payload;
-import javax.validation.ReportAsSingleViolation;
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+package de.kyrychenko.utils.vin;
 
-/**
- * Annotation used on the {@link String} fields, methods or parameters
- * to provide VIN validation functionality, using {@link VinValidator},
- * which implements {@link javax.validation.ConstraintValidator}
- * for {@link VIN}-annotated items.
- * <p>
- * Validation occurs using {@link VinUtils#validateVin(String)}
- */
-@Target({
-        ElementType.TYPE,
-        ElementType.FIELD,
-        ElementType.METHOD,
-        ElementType.PARAMETER,
-        ElementType.ANNOTATION_TYPE
-})
-@Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = VinValidator.class)
-@ReportAsSingleViolation
-@Documented
-@SuppressWarnings("unused")
-public @interface VIN {
+import org.junit.Test;
 
-    String message() default "Invalid VIN";
+import static org.junit.Assert.assertTrue;
 
-    Class<?>[] groups() default {};
+public class VinGeneratorUtilsTest {
 
-    Class<? extends Payload>[] payload() default {};
+    @Test
+    public void sholdGenerateCorrectVin() throws InvalidVinException {
+        final String generated = VinGeneratorUtils.getRandomVin();
+
+        assertTrue("VIN " + generated + " was generated, but validation failed.", VinValidatorUtils.validateVin(generated));
+    }
 }
