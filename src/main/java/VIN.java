@@ -31,6 +31,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Annotation used on the {@link String} fields, methods or parameters
+ * to provide VIN validation functionality, using {@link VinValidator},
+ * which implements {@link javax.validation.ConstraintValidator}
+ * for {@link VIN}-annotated items.
+ * <p>
+ * Validation occurs using {@link VinUtils#validateVin(String)}
+ */
 @Target({
         ElementType.TYPE,
         ElementType.FIELD,
